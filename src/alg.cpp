@@ -24,29 +24,34 @@ uint64_t fact(uint16_t n) {
 
 double calcItem(double x, uint16_t n) {
 
-  return pown(x, n) / fact(n);
+  return (pown(x, n) / fact(n));
 }
 
 double expn(double x, uint16_t count) {
 
   double rez = 1;
   for (int i = 1; i <= count; ++i)
-    rez += pown(x, i) / fact(i);
+    rez += calcItem(x, i);
   return rez;
 }
 
 double sinn(double x, uint16_t count) {
 
   double rez = x;
-  for (int i = 1; i <= count; ++i)
-  rez -= pown(-1, i-1) * (pown(x, 2*i-1) / fact(2*i-1));
+  double f;
+  for (int i = 1; i <= count; ++i) {
+    f = calcItem(x, 2 * i - 1);
+    rez -= pown(-1, i-1) * f;
+  }
   return rez;
 }
 
 double cosn(double x, uint16_t count) {
 
   double rez = x;
-  for (int i = 2; i <= count; ++i)
-  rez -= pown(-1, i-1) * (pown(x, 2*i-2) / fact(2*i-2));
+  double f;
+  for (int i = 2; i <= count; ++i) {
+    f = calcItem(x, 2 * i - 2);
+  rez -= pown(-1, i-1) * f;
   return rez;
 }
