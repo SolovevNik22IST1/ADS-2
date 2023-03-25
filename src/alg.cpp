@@ -4,47 +4,50 @@
 
 
 double pown(double value, uint16_t n) {
-  double rez = 1;
-  for (int i = n; i > 0; i--) {
-    rez *= value;
-  }
-  return rez;
+    double answer = 1;
+    if (value == -1) {
+        if (n % 2 == 0)
+            return 1;
+        else
+            return -1;
+    }
+    for (uint16_t i = 1; i <= n; ++i)
+        answer *= value;
+    return answer;
 }
 
 uint64_t fact(uint16_t n) {
-  uint64_t rez = 1;
-  for (int i = n; i >= 1; i--) {
-    rez *= i;
-  }
-  return rez;
+    uint64_t answer = 1;
+    for (uint16_t i = 2; i <= n; ++i)
+        answer *= i;
+    return answer;
 }
 
 double calcItem(double x, uint16_t n) {
-  return ((pown(x, n)) / (fact(n)));
+    return pown(x, n) / fact(n);
 }
 
 double expn(double x, uint16_t count) {
-  double rez = 0;
-  for (int i = count; i >= 0; i--) {
-    rez += calcItem(x, i);
-  }
-  return rez;
+    double rez = 0;
+    for (int i = 0; i <= count; i++) {
+        rez += calcItem(x, i);
+    }
+    return rez;
 }
 
 double sinn(double x, uint16_t count) {
-  double rez = 0;
-  for (int i = count; i > 0; i--) {
-    double k = calcItem(x, 2 * i - 1);
-    rez += pown(-1, i - 1) * k;
-  }
-  return rez;
-  }
+    double sin = 0;
+    for (int i = 1; i <= count; i++) {
+        sin += pown(-1, i-1) * calcItem(x, 2*i-1);
+    }
+    return sin;
+}
 
 double cosn(double x, uint16_t count) {
-  double rez = 0;
-  for (int i = count; i > 0; i--) {
-    double k = calcItem(x, 2 * i - 2);
-    rez += pown(-1, i - 1) * k;
-  }
-  return rez;
+    double cosin = 0;
+    for (int i = 1; i <= count; i++) {
+        cosin += pown(-1, i - 1) * calcItem(x, 2 * i - 2);
+    }
+    return cosin;
 }
+
